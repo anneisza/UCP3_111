@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Data Peminjaman</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!--Fungsi Flask untuk mengarahkan ke file CSS di folder static-->
+</head>
+<body>
+<div class="container">
+    <h1 class="title">Daftar Data Peminjaman</h1>
+    <div class="actions">
+        <a href="{{ url_for('add') }}"><button class="btn primary">➕ Tambah Data Peminjaman</button></a>
+    </div>
+    <br>    
+    <div class="card-list">
+        {% for b in peminjaman %}
+    <div class="card">
+        <h3>{{ b.nama_peminjam }}</h3>
+        <p1>{{ b.nama_buku }}</p1>
+        <p2>{{ b.tanggal_peminjaman }}</p2>
+        <p3>{{ b.tanggal_pengembalian }}</p3>
+        <div class="card-actions">
+            <a href="{{ url_for('edit', id=b.id) }}"><button class="btn">Edit</button></a>
+            <a href="{{ url_for('delete', id=b.id) }}"><button class="btn danger">Hapus</button></a>
+        </div>
+    </div>
+    {% else %}
+    <p class="empty">Belum ada data peminjaman</p>
+    {% endfor %}
+    </div>
+</div>
+</body>
+</html>

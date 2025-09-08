@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Data Peminjaman</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!--Fungsi Flask untuk mengarahkan ke file CSS di folder static-->
+</head>
+<body>
+<div class="container">
+    <h1 class="title">Edit Data Peminjaman</h1>
+    <form method="post" class="form">
+        <label>Nama peminjam:</label>
+        <input type="text" name="nama_peminjam" value="{{ peminjaman.nama_peminjam }}" required>
+        <label>Nama buku:</label>
+        <input type="text" name="nama_buku" value="{{ peminjaman.nama_buku }}" required>
+        <label>Tanggal peminjaman:</label>
+        <input type="text" name="tanggal_peminjaman" value="{{ peminjaman.tanggal_peminjaman }}" required>
+        <label>Tanggal pengembalian:</label>
+        <input type="text" name="tanggal_pengembalian" value="{{ peminjaman.tanggal_pengembalian }}" required>
+        <div class="form-actions">
+        <button type="submit" class="btn primary">Update</button>
+        <a href="{{ url_for('index') }}"><button type="button" class="btn">Kembali</button></a>
+    </div>
+    </form>
+</div>
+</body>
+</html>
+
