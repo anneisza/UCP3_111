@@ -13,15 +13,15 @@
     </div>
     <br>    
     <div class="card-list">
-        {% for b in peminjaman %}
+        {% for b in pinjam %}
     <div class="card">
         <h3>{{ b.nama_peminjam }}</h3>
-        <p1>{{ b.nama_buku }}</p1>
-        <p2>{{ b.tanggal_peminjaman }}</p2>
-        <p3>{{ b.tanggal_pengembalian }}</p3>
+        <p>{{ b.nama_buku }}</p>
+        <p>{{ b.tanggal_peminjaman }}</p>
+        <p>{{ b.tanggal_pengembalian }}</p>
         <div class="card-actions">
-            <a href="{{ url_for('edit', id=b.id) }}"><button class="btn">Edit</button></a>
-            <a href="{{ url_for('delete', id=b.id) }}"><button class="btn danger">Hapus</button></a>
+            <a href="{{ url_for('edit', id=b.id_peminjaman) }}"><button class="btn">Edit</button></a>
+            <a href="{{ url_for('delete', id=b.id_peminjaman) }}"><button class="btn danger">Hapus</button></a>
         </div>
     </div>
     {% else %}

@@ -16,8 +16,8 @@ def init_db():# Membuat tabel jika belum ada dengan kolom:
                         id_peminjaman INTEGER PRIMARY KEY AUTOINCREMENT,
                         nama_peminjam VARCHAR(100) NOT NULL,
                         nama_buku VARCHAR(100) NOT NULL,
-                        tanggal_peminjaman INTEGER,
-                        tanggal_pengembalian INTEGER
+                        tanggal_peminjaman TEXT NOT NULL,
+                        tanggal_pengembalian TEXT NOT NULL
                     );''')
     conn.commit()
     conn.close()
@@ -47,18 +47,18 @@ def add():
 
 
 @app.route('/edit/<int:id>', methods=['POST', 'GET'])
-def edit(id_peminjaman):
+def edit(id):
     conn = connectdb()
-    peminjaman = conn.execute("SELECT * FROM peminjaman WHERE id_peminjaman = ?", (id_peminjaman,)).fetchone()
+    peminjaman = conn.execute("SELECT * FROM peminjaman WHERE id_peminjaman = ?", (id,)).fetchone()
     if not peminjaman:
-        return "Buku tidak ditemukan", 404
+        return "Data peminjaman tidak ditemukan", 404
     
     if request.method == 'POST':
         nama_peminjam = request.form['nama_peminjam']
         nama_buku = request.form['nama_buku']
         tanggal_peminjaman = request.form['tanggal_peminjaman']
         tanggal_pengembalian = request.form['tanggal_pengembalian']
-        conn.execute("UPDATE books SET nama_peminjam = ?, nama_buku = ?, tanggal_peminjaman = ?, tanggal_pengembalian = ?  WHERE id_peminjaman = ?", (nama_peminjam, nama_buku, tanggal_peminjaman, tanggal_pengembalian, id_peminjaman))
+        conn.execute("UPDATE peminjaman SET nama_peminjam = ?, nama_buku = ?, tanggal_peminjaman = ?, tanggal_pengembalian = ?  WHERE id_peminjaman = ?", (nama_peminjam, nama_buku, tanggal_peminjaman, tanggal_pengembalian, id))
         conn.commit()
         conn.close()
         return redirect(url_for('index'))
@@ -67,9 +67,9 @@ def edit(id_peminjaman):
     return render_template('edit.html', peminjaman=peminjaman)
 
 @app.route('/delete/<int:id>')
-def delete(id_peminjaman):
+def delete(id):
     conn = connectdb()
-    conn.execute("DELETE FROM peminjaman WHERE id_peminjaman = ?", (id_peminjaman,))
+    conn.execute("DELETE FROM peminjaman WHERE id_peminjaman = ?", (id,))
     conn.commit()
     conn.close()
     return redirect(url_for('index'))
